@@ -29,8 +29,8 @@ export default {
   mounted() {
     // Cargar datos del usuario desde localStorage si existen
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user.username) {
-      this.username = user.username;
+    if (user.name) {
+      this.username = user.name;
     }
     
     // Intentar cargar conversación existente desde localStorage
@@ -132,6 +132,12 @@ export default {
       // Generar nuevo conversation_id
       this.conversationId = this.chatbotService.generateUUID();
       console.log('🔄 Nueva conversación iniciada:', this.conversationId);
+      
+      // Actualizar username por si cambió
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (user.name) {
+        this.username = user.name;
+      }
       
       // Limpiar mensajes y agregar mensaje de bienvenida
       this.messages = [];
