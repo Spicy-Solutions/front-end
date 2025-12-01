@@ -26,6 +26,14 @@ export default {
       robotIcon: robotIcon
     };
   },
+  computed: {
+    isOwner() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const roleId = user.roleId || localStorage.getItem('roleId');
+      // roleId 1 = ROLE_OWNER (dueño del hotel)
+      return roleId === 1 || roleId === '1';
+    }
+  },
   methods: {
     handleButton() {
       console.log("Hello!");
@@ -42,12 +50,15 @@ export default {
   <MainPageNavigation @category-changed="onCategoryChanged" />
   <HotelGallery ref="hotelGallery" />
 
-  <div class="chatbot-button" @click="showPopUp = !showPopUp" ref="chatbotButton">
-    <img :src="robotIcon" alt="sweetbot" class="chatbot-image" />
-  </div>
-  <div v-if="showPopUp" class="pop-up-section" ref="popupChatbot">
-    <ChatbotPopupComponent @close-chat="showPopUp = false"/>
-  </div>
+  <!-- Chatbot disponible solo para ROLE_OWNER -->
+  <template v-if="isOwner">
+    <div class="chatbot-button" @click="showPopUp = !showPopUp" ref="chatbotButton">
+      <img :src="robotIcon" alt="sweetbot" class="chatbot-image" />
+    </div>
+    <div v-if="showPopUp" class="pop-up-section" ref="popupChatbot">
+      <ChatbotPopupComponent @close-chat="showPopUp = false"/>
+    </div>
+  </template>
 </template>
 
 <style scoped>
