@@ -26,32 +26,13 @@ export default {
       robotIcon: robotIcon
     };
   },
-   mounted() {
-    document.addEventListener("click", this.handleClickOutside);
-  },
-    beforeUnmount() {
-    document.removeEventListener("click", this.handleClickOutside);
-  },
   methods: {
     handleButton() {
       console.log("Hello!");
     },
     onCategoryChanged(category) {
       console.log("Category changed to:", category);
-    },
-    handleClickOutside(event) {
-    
-      const popup = this.$refs.popupChatbot;
-      const button = this.$refs.chatbotButton;
-
-      if (!this.showPopUp || !popup) return;
-
-      if (popup.contains(event.target)) return;
-
-      if (button.contains(event.target)) return;
-
-      this.showPopUp = false;
-  }
+    }
   },
 };
 </script>
@@ -65,7 +46,7 @@ export default {
     <img :src="robotIcon" alt="sweetbot" class="chatbot-image" />
   </div>
   <div v-if="showPopUp" class="pop-up-section" ref="popupChatbot">
-    <ChatbotPopupComponent/>
+    <ChatbotPopupComponent @close-chat="showPopUp = false"/>
   </div>
 </template>
 

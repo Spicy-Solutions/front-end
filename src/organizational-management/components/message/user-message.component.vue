@@ -1,9 +1,21 @@
 <script>
+export default {
+  props: {
+    message: {
+      type: String,
+      required: true
+    },
+    timestamp: {
+      type: String,
+      default: ''
+    }
+  }
+}
 </script>
 <template>
     <div class="user-block">
         <div class="user-message">
-            <p>tes13134134341234123413413123t</p>
+            <p>{{ message }}</p>
         </div>
     </div>
 </template>
@@ -11,20 +23,31 @@
 
 .user-block{
     margin-left: auto;
-    width: 12em;
-
+    max-width: 75%;
     display: flex;
+    justify-content: flex-end;
     gap: 0.7em;
 }
 
 .user-message {
   background: #1e88ff;
-  max-width: 12em;
- 
+  color: white;
+  max-width: 100%;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
   
-  padding: 14px 18px;
-  border-radius: 0px 12px 12px 12px;
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: 0 2px 4px rgba(30, 136, 255, 0.2);
+}
+
+.user-message p {
+  margin: 0;
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }
 
 </style>
